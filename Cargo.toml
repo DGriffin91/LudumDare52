@@ -1,0 +1,42 @@
+[package]
+name = "harvest"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "lib_harvest" 
+path = "src/lib.rs"
+crate-type = ["rlib", "dylib"]
+
+[dependencies]
+bevy = { version = "0.9", features = [
+  "flac",
+  "vorbis",
+  "dynamic"
+] }
+bevy_asset_loader = { version = "0.14", features = ["stageless"] }
+bevy_kira_audio = { version = "0.13", features = ["flac"] }
+bevy_egui = "0.18"
+bevy-web-resizer = "4.0"
+pathfinding = "4.2"
+bevy_mod_raycast = "0.7"
+iyes_loopless = "0.9"
+bevy-scene-hook = "5.0"
+rand = "0.8"
+rand_pcg = "0.3"
+bevy_system_graph = "0.4"
+rkyv = { version = "0.7", features = ["validation"] }
+bytecheck = "0.6"
+lz4_flex = "0.9"
+base64 = "0.13"
+ridiculous_bevy_hot_reloading = {git = "https://github.com/DGriffin91/ridiculous_bevy_hot_reloading"}
+int-enum = "0.5"
+
+# Enable only a small amount of optimization in debug mode
+[profile.dev]
+opt-level = 3
+
+# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
+[profile.dev.package."*"]
+opt-level = 3
