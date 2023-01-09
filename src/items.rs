@@ -387,8 +387,15 @@ pub fn spawn_factory(
         })
         .insert(OutputResource(kind))
         .insert(Resources(HashMap::from([(kind, 0)])))
-        .insert(Pickup)
         .insert(Sellable);
+
+    match kind {
+        R::LittleHats => (),
+        _ => {
+            ecmds.insert(Pickup);
+        }
+    }
+
     let idx = b.ls_to_idx(pos);
     b.board[idx] = Some(entity);
 }

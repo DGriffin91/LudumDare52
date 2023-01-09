@@ -617,7 +617,7 @@ pub fn mouse_interact(
                     let mut style = ui.style_mut();
                     style.visuals.override_text_color = Some(TEXT_COLOR2);
                     ui.label(&id);
-                    resources.draw(&id, ui, true, false, false);
+                    resources.draw(&id, ui, false, false, false);
                 },
             );
         }

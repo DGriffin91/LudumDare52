@@ -144,7 +144,10 @@ fn ui_sidebar(
                     ui.end_row();
                 });
                 ui.label(" DELIVERY DEADLINE");
-                ui.label(&format!("{} SECONDS LEFT", player.delivery_dealine as i64));
+                ui.label(&format!(
+                    "{} SECONDS LEFT",
+                    (player.delivery_dealine / 100.0) as i64
+                ));
 
                 //let v = 1.0 - (player.level_time * 0.1 - player.level).fract();
                 //egui::Grid::new("level grid").show(ui, |ui| {
