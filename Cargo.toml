@@ -12,8 +12,7 @@ crate-type = ["rlib", "dylib"]
 [dependencies]
 bevy = { version = "0.9", features = [
   "flac",
-  "vorbis",
-  "dynamic"
+  "vorbis"
 ] }
 bevy_asset_loader = { version = "0.14", features = ["stageless"] }
 bevy_kira_audio = { version = "0.13", features = ["flac"] }
@@ -30,7 +29,7 @@ rkyv = { version = "0.7", features = ["validation"] }
 bytecheck = "0.6"
 lz4_flex = "0.9"
 base64 = "0.13"
-ridiculous_bevy_hot_reloading = {git = "https://github.com/DGriffin91/ridiculous_bevy_hot_reloading"}
+#ridiculous_bevy_hot_reloading = {git = "https://github.com/DGriffin91/ridiculous_bevy_hot_reloading"}
 int-enum = "0.5"
 
 # Enable only a small amount of optimization in debug mode

@@ -27,7 +27,6 @@ use player::{MyRaycastSet, PlayerState, Resources, R};
 
 use rand::{seq::SliceRandom, Rng};
 use rand_pcg::Pcg32;
-use ridiculous_bevy_hot_reloading::HotReloadPlugin;
 use ui::GameUI;
 pub mod action;
 pub mod assets;
@@ -39,7 +38,7 @@ pub mod schedule;
 pub mod ui;
 
 /// #[no_mangle] Needed so libloading can find this entry point
-#[no_mangle]
+//#[no_mangle]
 pub fn main() {
     let mut app = App::new();
     app.add_system(fix_material_colors)
@@ -85,7 +84,7 @@ pub fn main() {
                     ..Default::default()
                 }),
         )
-        .add_plugin(HotReloadPlugin::default())
+        //.add_plugin(HotReloadPlugin::default())
         .insert_resource(GameBoard::default())
         .insert_resource(RestartGame::default())
         .insert_resource(GameRng::default())

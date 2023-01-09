@@ -1,7 +1,6 @@
 use bevy::{math::*, prelude::*, utils::HashMap};
 
 use bevy_scene_hook::{HookedSceneBundle, SceneHook};
-use ridiculous_bevy_hot_reloading::hot_reloading_macros::make_hot;
 
 use crate::{
     assets::ModelAssets,
@@ -115,7 +114,6 @@ pub struct Blobby {
 #[derive(Component)]
 pub struct PathInd;
 
-#[make_hot]
 pub(crate) fn update_blobby_paths(
     b: Res<GameBoard>,
     mut blobbies: Query<(&Transform, &mut Path, &Blobby)>,
@@ -163,7 +161,6 @@ pub(crate) fn debug_show_blobby_path(
     }
 }
 
-#[make_hot]
 pub(crate) fn move_blobby_along_path(
     b: Res<GameBoard>,
     mut blobbies: Query<(&mut Transform, &mut Path, &Blobby)>,
@@ -186,7 +183,6 @@ pub(crate) fn move_blobby_along_path(
     }
 }
 
-#[make_hot]
 pub(crate) fn blobby_get_resource(
     b: Res<GameBoard>,
     mut blobbies: Query<
@@ -227,7 +223,6 @@ pub(crate) fn blobby_get_resource(
     }
 }
 
-#[make_hot]
 pub(crate) fn blobby_put_resource(
     b: Res<GameBoard>,
     mut blobbies: Query<

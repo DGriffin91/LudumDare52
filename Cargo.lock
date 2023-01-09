@@ -248,7 +248,6 @@ version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dae99b246505811f5bc19d2de1e406ec5d2816b421d58fa223779eb576f472c9"
 dependencies = [
- "bevy_dylib",
  "bevy_internal",
 ]
 
@@ -432,15 +431,6 @@ dependencies = [
  "bevy_log",
  "bevy_time",
  "bevy_utils",
-]
-
-[[package]]
-name = "bevy_dylib"
-version = "0.9.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5d193c3d56e3bdd106596327d15dd67ddfd862f8b5aa8260677efefe3ddef736"
-dependencies = [
- "bevy_internal",
 ]
 
 [[package]]
@@ -2056,7 +2046,6 @@ dependencies = [
  "pathfinding",
  "rand",
  "rand_pcg",
- "ridiculous_bevy_hot_reloading",
  "rkyv",
 ]
 
@@ -2111,18 +2100,6 @@ name = "hexf-parse"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dfa686283ad6dd069f105e5ab091b04c62850d3e4cf5d67debad1933f55023df"
-
-[[package]]
-name = "hot_reloading_macros"
-version = "0.1.0"
-source = "git+https://github.com/DGriffin91/ridiculous_bevy_hot_reloading#380dffdf140cf636f37aea157d42c50c01a3da1a"
-dependencies = [
- "libloading",
- "proc-macro-crate",
- "proc-macro2",
- "quote",
- "syn",
-]
 
 [[package]]
 name = "ident_case"
@@ -3256,16 +3233,6 @@ name = "renderdoc-sys"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f1382d1f0a252c4bf97dc20d979a2fdd05b024acd7c2ed0f7595d7817666a157"
-
-[[package]]
-name = "ridiculous_bevy_hot_reloading"
-version = "0.1.0"
-source = "git+https://github.com/DGriffin91/ridiculous_bevy_hot_reloading#380dffdf140cf636f37aea157d42c50c01a3da1a"
-dependencies = [
- "bevy",
- "hot_reloading_macros",
- "libloading",
-]
 
 [[package]]
 name = "ringbuf"

@@ -4,7 +4,6 @@ use bevy_egui::{
     EguiContext,
 };
 use bevy_mod_raycast::{Intersection, RaycastMethod, RaycastSource};
-use ridiculous_bevy_hot_reloading::hot_reloading_macros::make_hot;
 
 use crate::{
     action::{Action, ActionQueue},
@@ -657,7 +656,6 @@ pub fn update_raycast_with_cursor(
     }
 }
 
-#[make_hot]
 pub fn update_player_resources(
     mut player: ResMut<PlayerState>,
     query: Query<&Resources, With<ResourcesAvailableToPlayer>>,
