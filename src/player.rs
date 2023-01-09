@@ -466,6 +466,19 @@ pub fn setup_player(
         ..default()
     })
     .insert(GameCursor);
+
+    com.spawn(PbrBundle {
+        mesh: model_assets.sphere_cursor.clone(),
+        material: materials.add(StandardMaterial {
+            base_color: Color::rgba(0.0, 0.0, 0.0, 0.17),
+            alpha_mode: AlphaMode::Blend,
+            emissive: Color::rgb(0.0, 1.0, 0.0),
+            ..default()
+        }),
+        transform: Transform::from_xyz(0.0, -1000.0, 0.0),
+        ..default()
+    })
+    .insert(SelectedCursor);
 }
 
 pub struct MyRaycastSet;
@@ -476,15 +489,32 @@ pub fn mouse_interact(
     b: Res<GameBoard>,
     buttons: Res<Input<MouseButton>>,
     mut game_cursor: Query<(&mut Transform, &mut Handle<Mesh>), With<GameCursor>>,
+    mut selected_cursor: Query<&mut Transform, (With<SelectedCursor>, Without<GameCursor>)>,
     mut player: ResMut<PlayerState>,
     mut action_queue: ResMut<ActionQueue>,
     // TODO use action system for replays, should only need &Blobby
-    mut blobbies: Query<(Entity, &Transform, &mut Blobby, &Resources), Without<GameCursor>>,
+    mut blobbies: Query<
+        (Entity, &Transform, &mut Blobby, &Resources),
+        (Without<GameCursor>, Without<SelectedCursor>),
+    >,
     model_assets: Res<ModelAssets>,
     pickups: Query<(Entity, &Resources), With<Pickup>>,
     dropoffs: Query<(&Dropoff, &Resources, &OutputResource), Without<OutgoingHats>>,
     outgoing_hats: Query<&Dropoff, (With<OutgoingHats>, Without<OutputResource>)>,
 ) {
+    if let Some(mut trans) = selected_cursor.iter_mut().next() {
+        let mut set = false;
+        if let Some(selected_entity) = player.selected_entity {
+            if let Ok((_, selected_trans, _blobby, _resources)) = blobbies.get(selected_entity) {
+                trans.translation = selected_trans.translation + vec3(0.0, 0.0, 0.0);
+                set = true;
+            }
+        }
+        if !set {
+            trans.translation = vec3(0.0, -9999.0, 0.0);
+        }
+    }
+
     let mut cursor_pos = None;
     for intersection in &intersections {
         //info!(
@@ -573,8 +603,8 @@ pub fn mouse_interact(
         }
     }
 
-    if let Some(entity) = hovered_blobby {
-        if let Ok((_, _, blobby, resources)) = blobbies.get(entity) {
+    if let Some(hovered_entity) = hovered_blobby {
+        if let Ok((_, _, blobby, resources)) = blobbies.get(hovered_entity) {
             if let Some((mut trans, mut mesh)) = game_cursor.iter_mut().next() {
                 trans.translation = hovered_blobby_pos + vec3(0.0, 0.0, 0.0);
                 *mesh = model_assets.sphere_cursor.clone();
@@ -640,6 +670,9 @@ pub fn mouse_interact(
 
 #[derive(Component)]
 pub struct GameCursor;
+
+#[derive(Component)]
+pub struct SelectedCursor;
 
 pub fn update_raycast_with_cursor(
     mut cursor: EventReader<CursorMoved>,
